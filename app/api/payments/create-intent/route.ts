@@ -15,6 +15,10 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, error: "Invalid amount" }, { status: 400 })
     }
 
+    if (!billing_address?.email) {
+      return NextResponse.json({ success: false, error: "Email is required" }, { status: 400 })
+    }
+
     const orderNumber = generateOrderNumber()
 
     // Create payment intent
@@ -49,7 +53,7 @@ export async function POST(request: NextRequest) {
     // This will be updated to "paid" via webhook
     const orderData = {
       order_number: orderNumber,
-      email: billing_address.email || "",
+      email: billing_address.email,
       billing_address_json: billing_address,
       shipping_address_json: shipping_address,
       items_json: items,

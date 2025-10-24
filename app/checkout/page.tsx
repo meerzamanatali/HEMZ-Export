@@ -32,6 +32,7 @@ interface Address {
   postal_code: string
   country: string
   phone?: string
+  email?: string
 }
 
 const countries = [
@@ -67,6 +68,7 @@ export default function CheckoutPage() {
     postal_code: "",
     country: "US",
     phone: "",
+    email: "",
   })
 
   const [shippingAddress, setShippingAddress] = useState<Address>({
@@ -80,6 +82,7 @@ export default function CheckoutPage() {
     postal_code: "",
     country: "US",
     phone: "",
+    email: "",
   })
 
   const [sameAsBilling, setSameAsBilling] = useState(true)
@@ -217,6 +220,17 @@ export default function CheckoutPage() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
+                  <div>
+                    <Label htmlFor="billing-email">Email *</Label>
+                    <Input
+                      id="billing-email"
+                      type="email"
+                      value={billingAddress.email}
+                      onChange={(e) => handleAddressChange("billing", "email", e.target.value)}
+                      required
+                    />
+                  </div>
+
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <Label htmlFor="billing-first-name">First Name *</Label>
@@ -348,6 +362,17 @@ export default function CheckoutPage() {
 
                   {!sameAsBilling && (
                     <div className="space-y-4">
+                      <div>
+                        <Label htmlFor="shipping-email">Email *</Label>
+                        <Input
+                          id="shipping-email"
+                          type="email"
+                          value={shippingAddress.email}
+                          onChange={(e) => handleAddressChange("shipping", "email", e.target.value)}
+                          required
+                        />
+                      </div>
+
                       <div className="grid grid-cols-2 gap-4">
                         <div>
                           <Label htmlFor="shipping-first-name">First Name *</Label>

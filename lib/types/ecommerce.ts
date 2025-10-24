@@ -73,6 +73,7 @@ export interface Address {
   postal_code: string
   country: string
   phone?: string
+  email?: string
 }
 
 export interface Order {
